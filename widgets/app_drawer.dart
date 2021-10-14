@@ -14,7 +14,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           AppBar(
             title: Text('Shopping'),
-            automaticallyImplyLeading: false,
+            automaticallyImplyLeading: true,
           ),
           Divider(),
           ListTile(

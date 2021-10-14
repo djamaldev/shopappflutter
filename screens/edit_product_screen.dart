@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/product.dart';
@@ -147,6 +145,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           )
         ],
       ),
+      drawer: AppDrawer(),
       body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -156,6 +155,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               child: Form(
                 key: _formKey,
                 child: ListView(
+                  //shrinkWrap: true,
                   children: [
                     TextFormField(
                       initialValue: _initailValues['title'],
@@ -287,7 +287,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ),
               ),
             ),
-      drawer: AppDrawer(),
     );
   }
 }

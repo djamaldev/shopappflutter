@@ -296,7 +296,7 @@ class _AuthCardState extends State<AuthCard>
                         onPressed: _switchAuthMode,
                         child: Text(
                             '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD')),
-                  )
+                  ),
                 ],
               ),
             )),
