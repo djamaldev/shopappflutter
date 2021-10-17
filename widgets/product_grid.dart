@@ -10,7 +10,7 @@ class ProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final prodData = Provider.of<Products>(context);
+    final prodData = Provider.of<Products>(context, listen: false);
     final products = showFavorite! ? prodData.favoriteItems : prodData.items;
     return products.isEmpty
         ? Center(

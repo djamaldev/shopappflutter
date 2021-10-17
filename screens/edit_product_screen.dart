@@ -7,6 +7,8 @@ import 'package:shopapp/widgets/app_drawer.dart';
 class EditProductScreen extends StatefulWidget {
   static const routName = '/edit-product';
 
+  const EditProductScreen({Key? key}) : super(key: key);
+
   @override
   State<EditProductScreen> createState() => _EditProductScreenState();
 }
@@ -32,7 +34,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     'imageUrl': ''
   };
 
-  var _isInit = true;
+  final _isInit = true;
 
   var _isLoading = false;
 
@@ -121,7 +123,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     if (_isInit) {
       final productId = ModalRoute.of(context)?.settings.arguments as String;
       if (productId != null) {
-        _editedProduct = Provider.of<Products>(context).findById(productId);
+        _editedProduct =
+            Provider.of<Products>(context, listen: false).findById(productId);
         _initailValues = {
           'title': _editedProduct.title!,
           'description': _editedProduct.description!,
@@ -140,7 +143,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         title: Text('Edit product'),
         actions: [
           IconButton(
-            onPressed: () => _saveForm,
+            onPressed: () => _saveForm(),
             icon: Icon(Icons.save),
           )
         ],
@@ -212,7 +215,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     TextFormField(
                       initialValue: _initailValues['description'],
                       decoration: InputDecoration(labelText: 'Description'),
-                      maxLength: 3,
+                      //maxLength: 3,
                       keyboardType: TextInputType.multiline,
                       focusNode: _descriptionFocusNode,
                       validator: (val) {
@@ -274,15 +277,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               _editedProduct = Product(
                                   id: _editedProduct.id,
                                   title: _editedProduct.title,
-                                  description: val,
+                                  description: _editedProduct.description,
                                   price: _editedProduct.price,
-                                  imageUrl: _editedProduct.imageUrl,
+                                  imageUrl: val,
                                   isFavorite: _editedProduct.isFavorite);
                             },
                           ),
                         )
                       ],
-                    )
+                    ),
+                    ElevatedButton(
+                        onPressed: () => _saveForm(), child: Text('upload'))
                   ],
                 ),
               ),

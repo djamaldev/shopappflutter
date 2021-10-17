@@ -13,6 +13,7 @@ class Badge extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
+        child!,
         Positioned(
           top: 8,
           right: 8,

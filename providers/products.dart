@@ -39,24 +39,24 @@ class Products with ChangeNotifier {
       final extractedData = json.decode(res.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
+      } else {
+        url =
+            "https://shopapp-cef20-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken";
+        final favRes = await http.get(url);
+        final favData = json.decode(favRes.body) as Map<String, dynamic>;
+        final List<Product> loadedProducts = [];
+        extractedData.forEach((prodId, prodData) {
+          loadedProducts.add(Product(
+              id: prodId,
+              title: prodData['title'],
+              description: prodData['description'],
+              price: prodData['price'],
+              isFavorite: favData == null ? false : prodData[prodId] ?? false,
+              imageUrl: prodData['imageUrl']));
+        });
+        _items = loadedProducts;
+        notifyListeners();
       }
-
-      url =
-          "https://shopapp-cef20-default-rtdb.firebaseio.com/userFavorites/$userId.json?auth=$authToken";
-      final favRes = await http.get(url);
-      final favData = json.decode(favRes.body);
-      final List<Product> loadedProducts = [];
-      extractedData.forEach((prodId, prodData) {
-        loadedProducts.add(Product(
-            id: prodId,
-            title: prodData['title'],
-            description: prodData['description'],
-            price: prodData['price'],
-            isFavorite: favData == null ? false : prodData[prodId] ?? false,
-            imageUrl: prodData['imageUrl']));
-      });
-      _items = loadedProducts;
-      notifyListeners();
     } catch (e) {
       throw e;
     }

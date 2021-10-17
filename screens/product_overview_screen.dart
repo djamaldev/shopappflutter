@@ -43,26 +43,27 @@ class _ProductOverViewScreenState extends State<ProductOverViewScreen> {
         title: Text('My Shop'),
         actions: [
           PopupMenuButton(
-              onSelected: (FilterOption selectedVal) {
-                setState(() {
-                  if (selectedVal == FilterOption.favorites) {
-                    _showOnlyFavorites = true;
-                  } else {
-                    _showOnlyFavorites = false;
-                  }
-                });
-              },
-              icon: Icon(Icons.more_vert),
-              itemBuilder: (_) => [
-                    PopupMenuItem(
-                      child: Text('Only favorites'),
-                      value: FilterOption.favorites,
-                    ),
-                    PopupMenuItem(
-                      child: Text('Show all'),
-                      value: FilterOption.all,
-                    ),
-                  ]),
+            onSelected: (FilterOption selectedVal) {
+              setState(() {
+                if (selectedVal == FilterOption.favorites) {
+                  _showOnlyFavorites = true;
+                } else {
+                  _showOnlyFavorites = false;
+                }
+              });
+            },
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Only favorites'),
+                value: FilterOption.favorites,
+              ),
+              PopupMenuItem(
+                child: Text('Show all'),
+                value: FilterOption.all,
+              ),
+            ],
+          ),
           Consumer<Cart>(
             child: IconButton(
                 onPressed: () =>
